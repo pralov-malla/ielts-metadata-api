@@ -105,9 +105,9 @@ class VisionService:
         )
         inputs = inputs.to(self.model.device)
         
-        # Generate output
+        # Generate output with increased token limit
         with torch.no_grad():
-            generated_ids = self.model.generate(**inputs, max_new_tokens=2048)
+            generated_ids = self.model.generate(**inputs, max_new_tokens=4096)
             generated_ids_trimmed = [
                 out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
             ]

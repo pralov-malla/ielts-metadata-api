@@ -11,8 +11,10 @@ GENERAL RULES
 -------------
 1) Output:
 - Output EXACTLY ONE JSON object.
-- NO extra text, NO explanations, NO markdown.
+- NO extra text, NO explanations, NO markdown code blocks.
 - JSON must be valid: double quotes for keys/strings, no comments, no trailing commas.
+- Do NOT use expressions like "35 vs 10" in arrays - use proper arrays like [35, 10].
+- Ensure all arrays contain only valid JSON values (numbers, strings, objects).
 
 2) Missing / uncertain info:
 - If something is not visible/unclear, use null (or [] for arrays).
