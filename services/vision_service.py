@@ -119,7 +119,20 @@ class VisionService:
         
         # Parse JSON output
         try:
-            metadata = json.loads(output_text[0])
+            output = output_text[0]
+            
+            # Strip markdown code blocks if present
+            if output.startswith("```json"):
+                output = output[7:]  # Remove ```json
+            elif output.startswith("```"):
+                output = output[3:]   # Remove ```
+            
+            if output.endswith("```"):
+                output = output[:-3]  # Remove trailing ```
+            
+            output = output.strip()  # Remove whitespace
+            
+            metadata = json.loads(output)
             return metadata
         except json.JSONDecodeError as e:
             # If JSON parsing fails, return the raw output with error info
