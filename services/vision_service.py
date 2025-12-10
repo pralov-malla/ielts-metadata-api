@@ -67,6 +67,7 @@ class VisionService:
         Returns:
             dict: Structured metadata as JSON
         """
+        print("Extracting metadata from image...")
         if self.model is None or self.processor is None:
             raise RuntimeError("Model not initialized")
         
@@ -133,10 +134,11 @@ class VisionService:
             output = output.strip()  # Remove whitespace
             
             metadata = json.loads(output)
-            print(metadata)
+            print("metadata = ", metadata)
             return metadata
         except json.JSONDecodeError as e:
             # If JSON parsing fails, return the raw output with error info
+            print("error output_text[0] = ", output_text[0])
             return {
                 "error": "Failed to parse JSON output",
                 "error_details": str(e),
