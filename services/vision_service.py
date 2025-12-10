@@ -35,19 +35,21 @@ class VisionService:
         else:
             print("Warning: No GPU detected. Model will run on CPU (very slow).")
         
-        # Configure 4-bit quantization
+        # Configure 4-bit quantization with CPU offloading
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.bfloat16,
             bnb_4bit_use_double_quant=True,
-            bnb_4bit_quant_type="nf4"
+            bnb_4bit_quant_type="nf4",
+            llm_int8_enable_fp32_cpu_offload=True
         )
         
-        # Load model
+        # Load model with CPU offloading
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             self.model_name,
             quantization_config=quantization_config,
             device_map="auto",
+            low_cpu_mem_usage=True,
         )
         
         # Load processor
