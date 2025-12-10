@@ -133,6 +133,7 @@ class VisionService:
             output = output.strip()  # Remove whitespace
             
             metadata = json.loads(output)
+            print(metadata)
             return metadata
         except json.JSONDecodeError as e:
             # If JSON parsing fails, return the raw output with error info
